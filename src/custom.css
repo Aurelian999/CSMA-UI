@@ -1,0 +1,96 @@
+body {
+    /* background-color: #80589e; */
+}
+
+.site-info {
+    background: #ffffff;
+    margin: 0;
+    padding: 20px 0;
+}
+
+.footer-workday {
+    width: 100px;
+}
+
+footer {
+    background-color: #bc95d8;
+	box-shadow: 0 -5px 25px 0 rgba(0, 0, 0, 0.2);
+	position: relative;
+	width: 100%;
+}
+
+.nav-menu {
+    padding-left: 50px;
+}
+
+.contact-social > a{
+    margin: 15px 15px 15px 1px;
+    margin-left: 0px;
+}
+.footer-col {
+    padding-top: 20px;
+    display: block;
+}
+
+
+
+
+
+
+
+
+
+
+
+.floating-menu {
+	position: fixed;
+	right: 10px;
+	bottom: 12px;
+	height: 42px;
+	text-align: right;
+	transition: height 250ms ease-in-out;
+	z-index: 100;
+}
+
+.floating-menu.open {
+	height: 250px;
+	/* overflow: hidden; */
+}
+
+.floating-menu.open .floating-menu-item {
+	margin-top: 8px;
+}
+
+.floating-menu-item label{
+	display: inline-block;
+	margin-right: 8px;
+	padding: 4px 10px;
+	border-radius: 12px;
+	background: rgba(0,0,0,.4);
+	opacity: 0;
+	transition: opacity 250ms ease-in-out;
+}
+
+.floating-menu.open .floating-menu-item label {
+    opacity: 0.4;
+    color: whitesmoke;
+}
+
+.floating-menu-icon{
+	display: inline-block;
+	width: 42px;
+	height: 42px;
+	line-height: 42px;
+	vertical-align: middle;
+	background: #e53935;
+	border-radius: 50%;
+	border: none;
+	box-shadow: 0 2px 4px rgba(0,0,0,.2);
+	text-align: center;
+}
+
+.floating-menu-icon .material-icons {
+	font-size: 32px;
+	color: #fff;
+	vertical-align: middle;
+}
