@@ -1,11 +1,46 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Table } from 'react-bootstrap';
-import { useSpring, animated } from 'react-spring';
 import NavigationMenu from './NavigationMenu';
 import Footer from './Footer';
 import FloatingMenu from './FloatingMenu';
+import { salonService } from '../services/salon';
+import { Service } from '../interfaces/SalonService';
 
 function Services(): JSX.Element {
+  const [data, setData] = useState<Service[]>([]);
+
+  useEffect(() => {
+    salonService.getAll().then((resp) => {
+      console.log(resp);
+      setData(resp.data);
+    }, (err) => {
+      // TODO error handling
+      console.log(err);
+    });
+  }, []);
+
+  function createServicesTableRow(serviceData: Service) {
+    return (
+      <tr>
+        <td>{serviceData.name}</td>
+        <td>{serviceData.description}</td>
+        <td>
+          {serviceData.duration}
+          {' '}
+          minute
+        </td>
+        <td>
+          {serviceData.price}
+          {' '}
+          RON
+        </td>
+        <td>
+          <button type="button" className="btn-lg">Book</button>
+        </td>
+      </tr>
+    );
+  }
+
   return (
     <div>
       <NavigationMenu />
@@ -35,72 +70,7 @@ function Services(): JSX.Element {
             </tr>
           </thead>
           <tbody>
-            <tr id="relaxare">
-              <td>Masaj de relaxare</td>
-              <td>Masajul spatelui + masaj cervical</td>
-              <td>30 min</td>
-              <td>40 RON</td>
-            </tr>
-            <tr>
-              <td>Masaj de relaxare</td>
-              <td>Masajul spatelui + masaj cervical</td>
-              <td>60 min</td>
-              <td>80 RON</td>
-            </tr>
-            <tr>
-              <td>Masaj de relaxare</td>
-              <td>
-                Masajul spatelui, picioarelor, mâinilor, abdomenului și
-                feței(dacă se dorește)
-              </td>
-              <td>1 h 30 min</td>
-              <td>120 RON</td>
-            </tr>
-            <tr id="anticelulitic">
-              <td>Masaj anticelulitic</td>
-              <td>
-                Masarea pentru eliminarea celulitei si a aspectului de coaja de
-                portocala(fese, coapse, abdomen)
-              </td>
-              <td>40 min</td>
-              <td>40 RON</td>
-            </tr>
-            <tr>
-              <td>Masaj anticelulitic</td>
-              <td>
-                Masarea pentru eliminarea celulitei si a aspectului de coaja de
-                portocala(fese, coapse, abdomen, gambe)
-              </td>
-              <td>50 min</td>
-              <td>45 RON</td>
-            </tr>
-            <tr>
-              <td>Masaj anticelulitic</td>
-              <td>
-                Masarea pentru eliminarea celulitei si a aspectului de coaja de
-                portocala(fese, coapse, abdomen, gambe, mâini)
-              </td>
-              <td>1 h</td>
-              <td>50 RON</td>
-            </tr>
-            <tr id="combinat">
-              <td>Masaj combinat</td>
-              <td>Masarea de relaxare + masaj anticelulitic</td>
-              <td>50 min</td>
-              <td>50 RON</td>
-            </tr>
-            <tr>
-              <td>Masaj combinat</td>
-              <td>Masarea de relaxare + masaj anticelulitic</td>
-              <td>1 h</td>
-              <td>55 RON</td>
-            </tr>
-            <tr id="drenaj">
-              <td>Drenaj limfatic</td>
-              <td>Drenaj limfatic</td>
-              <td>1 h</td>
-              <td>60 RON</td>
-            </tr>
+            {data.map((service) => createServicesTableRow(service))}
           </tbody>
         </Table>
 
