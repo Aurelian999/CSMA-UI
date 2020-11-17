@@ -181,7 +181,7 @@ function Services(): JSX.Element {
               <td>Masaj combinat</td>
               <td>Masarea de relaxare + masaj anticelulitic</td>
               <td>10 sedinte x 1 h</td>
-              <AnimatedNumber val={500} />
+              <td>500 RON</td>
             </tr>
           </tbody>
         </Table>
@@ -191,22 +191,5 @@ function Services(): JSX.Element {
     </div>
   );
 }
-
-const AnimatedNumber = (nr) => {
-  const props = useSpring({
-    number: nr.val,
-    from: { number: 1 },
-    config: { duration: 2000 },
-  });
-
-  return (
-    <td>
-      <animated.span>
-        {props.number.interpolate((val) => Math.floor(val))}
-      </animated.span>{' '}
-      RON
-    </td>
-  );
-};
 
 export default Services;

@@ -13,8 +13,10 @@ function Oferte(): JSX.Element {
           <h2>Profita de ofertele noastre!</h2>
 
           <p>
-            Fii la curent cu ultimele oferte urmarind pagina de facebook{' '}
-            <a href="https://www.facebook.com/bodychoice.cluj/">Body Choice</a>!
+            Fii la curent cu ultimele oferte urmarind pagina de facebook
+            {' '}
+            <a href="https://www.facebook.com/bodychoice.cluj/">Body Choice</a>
+            !
           </p>
 
           <h3>Oferta lunii Martie</h3>

@@ -14,20 +14,27 @@ function Contact(): JSX.Element {
           <h1>Contact</h1>
           <br />
           <p>
-            Ne puteți contacta telefonic la numărul:{' '}
+            Ne puteți contacta telefonic la numărul:
+            {' '}
             <a href="tel:0740 428 881">
-              <FontAwesomeIcon icon={faPhoneAlt} /> 0740 428 881
+              <FontAwesomeIcon icon={faPhoneAlt} />
+              {' '}
+              0740 428 881
             </a>
           </p>
           <p>
-            Pe email:{' '}
+            Pe email:
+            {' '}
             <a href="mailto:contact@body-choice.ro">contact@body-choice.ro</a>
           </p>
           <p>
-            Pe WhatsApp: <a href="https://wa.me/40740428881">0740 428 881</a>
+            Pe WhatsApp:
+            {' '}
+            <a href="https://wa.me/40740428881">0740 428 881</a>
           </p>
           <p>
-            Pe Messenger:{' '}
+            Pe Messenger:
+            {' '}
             <a href="https://m.me/bodychoice.cluj">@bodychoice.cluj</a>
           </p>
           <address>
@@ -42,8 +49,8 @@ function Contact(): JSX.Element {
               height="400"
               frameBorder="0"
               style={{ border: 0 }}
-              allowFullScreen={true}
-            ></iframe>
+              allowFullScreen
+            />
           </Row>
         </div>
       </Container>
