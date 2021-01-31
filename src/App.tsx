@@ -7,16 +7,21 @@ import Oferte from './components/Oferte';
 import Termeni from './components/Termeni';
 import Gdpr from './components/Gdpr';
 import NotFound from './components/NotFound'
+import Signup from './components/pages/Signup';
+import { ROUTES } from './constants';
+import Login from './components/pages/Login';
 
 function App() {
   return (
       <Switch>
-          <Route path="/" component={Home} exact />
-          <Route path="/contact" component={Contact} />
-          <Route path="/servicii" component={Services} />
-          <Route path="/oferte" component={Oferte} />
+          <Route path={ROUTES.HOME} component={Home} exact />
+          <Route path={ROUTES.CONTACT} component={Contact} />
+          <Route path={ROUTES.SERVICES} component={Services} />
+          <Route path={ROUTES.OFFERS} component={Oferte} />
           <Route path="/termeni-si-conditii" component={Termeni} />
           <Route path="/gdpr" component={Gdpr} />
+          <Route path={ROUTES.LOGIN} component={Login} />
+          <Route path={ROUTES.SIGNUP} component={Signup} />
           <Route component={NotFound} />
       </Switch>
   );

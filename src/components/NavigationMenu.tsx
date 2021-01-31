@@ -22,6 +22,8 @@ function NavigationMenu(props: any) {
             <Nav.Link href="/contact">Contact</Nav.Link>
             <Nav.Link href="/servicii">Servicii si preturi</Nav.Link>
             <Nav.Link href="/oferte">Oferte</Nav.Link>
+            <Nav.Link href="/signup">Inregistrare</Nav.Link>
+            <Nav.Link href="/login">Autentificare</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
