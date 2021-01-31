@@ -11,19 +11,19 @@ import Signup from './components/pages/Signup';
 import { ROUTES } from './constants';
 import Login from './components/pages/Login';
 
-function App() {
+function App(): JSX.Element {
   return (
-      <Switch>
-          <Route path={ROUTES.HOME} component={Home} exact />
-          <Route path={ROUTES.CONTACT} component={Contact} />
-          <Route path={ROUTES.SERVICES} component={Services} />
-          <Route path={ROUTES.OFFERS} component={Oferte} />
-          <Route path="/termeni-si-conditii" component={Termeni} />
-          <Route path="/gdpr" component={Gdpr} />
-          <Route path={ROUTES.LOGIN} component={Login} />
-          <Route path={ROUTES.SIGNUP} component={Signup} />
-          <Route component={NotFound} />
-      </Switch>
+    <Switch>
+      <Route path={ROUTES.HOME} component={Home} exact />
+      <Route path={ROUTES.CONTACT} component={Contact} />
+      <Route path={ROUTES.SERVICES} component={Services} />
+      <Route path={ROUTES.OFFERS} component={Oferte} />
+      <Route path={ROUTES.TERMS_AND_CONDITIONS} component={Termeni} />
+      <Route path={ROUTES.GDPR} component={Gdpr} />
+      <Route path={ROUTES.LOGIN} component={Login} />
+      <Route path={ROUTES.SIGNUP} component={Signup} />
+      <Route component={NotFound} />
+    </Switch>
   );
 }
 
