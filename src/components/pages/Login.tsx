@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, FormLabel } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import {
   Formik, Field, Form, ErrorMessage,
 } from 'formik';
@@ -17,6 +17,7 @@ function Login(): JSX.Element {
     phone: '',
     passwordConfirmation: '',
   };
+  const history = useHistory();
 
   const validationSchema = Yup.object().shape({
     email: Yup.string().email('Email is invalid').required('Email is required'),
@@ -27,11 +28,12 @@ function Login(): JSX.Element {
 
   function onSubmit({ email, password }, { setSubmitting }) {
     identityService.login(email, password).then((resp) => {
-      console.log('y u no work?', resp);
-      // const { from } = location.state || { from: { pathname: "/" } };
-      // history.push(from);
+      if (resp.status === 200) {
+        history.push(ROUTES.HOME);
+      }
     }, (err) => {
       setSubmitting(false);
+      // TODO show error message to the user
     });
   }
 

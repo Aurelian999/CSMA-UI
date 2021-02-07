@@ -4,6 +4,7 @@ import {
   Formik, Field, Form, ErrorMessage,
 } from 'formik';
 import * as Yup from 'yup';
+import { useHistory } from 'react-router-dom';
 import Footer from '../Footer';
 import NavigationMenu from '../NavigationMenu';
 import { ROUTES } from '../../constants';
@@ -17,6 +18,7 @@ function Signup(): JSX.Element {
     passwordConfirmation: '',
     acceptTerms: false,
   };
+  const history = useHistory();
 
   const validationSchema = Yup.object({
     email: Yup.string().email('Email is invalid').required('Email is required'),
@@ -40,13 +42,16 @@ function Signup(): JSX.Element {
     ),
   });
 
-  function onSubmit({ email, password, passwordConfirmation, phone, acceptTerms }, { setStatus, setSubmitting }) {
+  function onSubmit({
+    email, password, passwordConfirmation, phone, acceptTerms,
+  }, { setStatus, setSubmitting }) {
     // setStatus();
-    identityService.signup(email, password)
+    identityService
+      .signup(email, password)
       .then(() => {
         console.log('signup done');
         // alertService.success('Registration successful, please check your email for verification instructions', { keepAfterRouteChange: true });
-        // history.push('login');
+        history.push('login');
       })
       .catch((error) => {
         setSubmitting(false);
@@ -55,7 +60,7 @@ function Signup(): JSX.Element {
   }
 
   return (
-    <section>
+    <>
       <NavigationMenu />
       <Container>
         <Formik
@@ -169,7 +174,7 @@ function Signup(): JSX.Element {
         </Formik>
       </Container>
       <Footer />
-    </section>
+    </>
   );
 }
 
