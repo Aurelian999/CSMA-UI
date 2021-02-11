@@ -9,6 +9,7 @@ import Footer from '../Footer';
 import NavigationMenu from '../NavigationMenu';
 import { ROUTES } from '../../constants';
 import { identityService } from '../../services/identity';
+import { useStores } from '../../stores/useStores';
 
 function Login(): JSX.Element {
   const initialValues = {
@@ -18,6 +19,7 @@ function Login(): JSX.Element {
     passwordConfirmation: '',
   };
   const history = useHistory();
+  const { userStore } = useStores();
 
   const validationSchema = Yup.object().shape({
     email: Yup.string().email('Email is invalid').required('Email is required'),
@@ -29,6 +31,7 @@ function Login(): JSX.Element {
   function onSubmit({ email, password }, { setSubmitting }) {
     identityService.login(email, password).then((resp) => {
       if (resp.status === 200) {
+        userStore.setJwt(resp.data.token);
         history.push(ROUTES.HOME);
       }
     }, (err) => {
