@@ -10,6 +10,10 @@ import NavigationMenu from '../NavigationMenu';
 import { ROUTES } from '../../constants';
 import { identityService } from '../../services/identity';
 import { useStores } from '../../stores/useStores';
+import Alert, { ALERT_TYPE } from '../Alert';
+import { ErrorResponse } from '../../interfaces/ErrorResponse';
+import { AxiosError } from 'axios';
+import { observer, useObserver } from 'mobx-react';
 
 function Login(): JSX.Element {
   const initialValues = {
@@ -19,7 +23,7 @@ function Login(): JSX.Element {
     passwordConfirmation: '',
   };
   const history = useHistory();
-  const { userStore } = useStores();
+  const { userStore, alertStore } = useStores();
 
   const validationSchema = Yup.object().shape({
     email: Yup.string().email('Email is invalid').required('Email is required'),
@@ -34,9 +38,14 @@ function Login(): JSX.Element {
         userStore.setJwt(resp.data.token);
         history.push(ROUTES.HOME);
       }
-    }, (err) => {
+    }, (err: AxiosError<ErrorResponse>) => {
       setSubmitting(false);
-      // TODO show error message to the user
+      const errorResponse = err.response;
+      if (errorResponse) {
+        errorResponse.data.errors.forEach((elem, index) => {
+          alertStore.addAlert({id: 'alert-id', text: elem, type: ALERT_TYPE.Danger, dismissible: true, autoClose: false});
+        });
+      }
     });
   }
 
@@ -44,6 +53,7 @@ function Login(): JSX.Element {
     <>
       <NavigationMenu />
       <Container>
+        <Alert />
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
@@ -124,4 +134,4 @@ function Login(): JSX.Element {
   );
 }
 
-export default Login;
+export default observer(Login);
