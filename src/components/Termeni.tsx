@@ -12,7 +12,7 @@ function Termeni(): JSX.Element {
           <h1>Termeni si conditii</h1>
           <p>
             Prin utilizarea site-ului sunteti de acord cu termenii si conditiile
-            prezcizate mai jos:
+            precizate mai jos:
           </p>
         </div>
       </Container>
