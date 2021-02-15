@@ -1,4 +1,9 @@
-import { action, makeObservable, observable } from 'mobx';
+import {
+  action,
+  computed,
+  makeObservable,
+  observable,
+} from 'mobx';
 import { UserData } from '../interfaces/UserData';
 
 export class UserStore {
@@ -10,6 +15,7 @@ export class UserStore {
     makeObservable(this, {
       user: observable,
       jwt: observable,
+      isAuthenticated: computed,
       setUser: action,
       getUser: action,
     });
@@ -26,11 +32,16 @@ export class UserStore {
     return this.user;
   }
 
+  // TODO - persist the JWT - use cookies?
   setJwt(jwt: string): void {
     this.jwt = jwt;
   }
 
   getJwt(): string {
     return this.jwt;
+  }
+
+  get isAuthenticated(): boolean {
+    return this.jwt !== '';
   }
 }

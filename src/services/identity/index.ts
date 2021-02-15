@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios';
 import { IDENTITY_API_LOGIN_PATH, IDENTITY_API_SIGNUP_PATH } from '../../constants';
 import { axiosInstance } from '../../helpers/axiosInstance';
 
-async function login(email: string, password: string): Promise<AxiosResponse<any>> {
+async function login(email: string, password: string): Promise<AxiosResponse<{token: string}>> {
   const resp = await axiosInstance.post(IDENTITY_API_LOGIN_PATH, {
     email,
     password,

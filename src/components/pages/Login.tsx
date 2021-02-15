@@ -5,6 +5,8 @@ import {
   Formik, Field, Form, ErrorMessage,
 } from 'formik';
 import * as Yup from 'yup';
+import { observer } from 'mobx-react';
+import { AxiosError } from 'axios';
 import Footer from '../Footer';
 import NavigationMenu from '../NavigationMenu';
 import { ROUTES } from '../../constants';
@@ -12,8 +14,6 @@ import { identityService } from '../../services/identity';
 import { useStores } from '../../stores/useStores';
 import Alert, { ALERT_TYPE } from '../Alert';
 import { ErrorResponse } from '../../interfaces/ErrorResponse';
-import { AxiosError } from 'axios';
-import { observer, useObserver } from 'mobx-react';
 
 function Login(): JSX.Element {
   const initialValues = {
@@ -33,9 +33,11 @@ function Login(): JSX.Element {
   });
 
   function onSubmit({ email, password }, { setSubmitting }) {
+    alertStore.clear();
     identityService.login(email, password).then((resp) => {
       if (resp.status === 200) {
-        userStore.setJwt(resp.data.token);
+        const { token } = resp.data;
+        userStore.setJwt(token);
         history.push(ROUTES.HOME);
       }
     }, (err: AxiosError<ErrorResponse>) => {
@@ -43,7 +45,13 @@ function Login(): JSX.Element {
       const errorResponse = err.response;
       if (errorResponse) {
         errorResponse.data.errors.forEach((elem, index) => {
-          alertStore.addAlert({id: 'alert-id', text: elem, type: ALERT_TYPE.Danger, dismissible: true, autoClose: false});
+          alertStore.addAlert({
+            id: `alert-${index}`,
+            text: elem,
+            type: ALERT_TYPE.Danger,
+            dismissible: true,
+            autoClose: false,
+          });
         });
       }
     });

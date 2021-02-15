@@ -2,9 +2,11 @@ import React from 'react';
 import { Nav, Navbar } from 'react-bootstrap';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { ROUTES } from '../constants';
+import { useStores } from '../stores/useStores';
 
 function NavigationMenu(props: RouteComponentProps) {
   const { location } = props;
+  const { userStore } = useStores();
 
   return (
     <Navbar bg="light" expand="lg" className="nav-menu">
@@ -28,10 +30,14 @@ function NavigationMenu(props: RouteComponentProps) {
           <Nav.Link href={ROUTES.OFFERS}>Oferte</Nav.Link>
 
         </Nav>
-        <Nav className="justify-content-end" variant="pills" activeKey={location.pathname}>
-          <Nav.Link href={ROUTES.SIGNUP} className="justify-content-end">Inregistrare</Nav.Link>
-          <Nav.Link href={ROUTES.LOGIN} className="justify-content-end">Autentificare</Nav.Link>
-        </Nav>
+        {
+          !userStore.isAuthenticated && (
+          <Nav className="justify-content-end" variant="pills" activeKey={location.pathname}>
+            <Nav.Link href={ROUTES.SIGNUP} className="justify-content-end">Inregistrare</Nav.Link>
+            <Nav.Link href={ROUTES.LOGIN} className="justify-content-end">Autentificare</Nav.Link>
+          </Nav>
+          )
+        }
       </Navbar.Collapse>
     </Navbar>
   );

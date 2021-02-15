@@ -5,10 +5,14 @@ import {
 } from 'formik';
 import * as Yup from 'yup';
 import { useHistory } from 'react-router-dom';
+import { AxiosError } from 'axios';
 import Footer from '../Footer';
 import NavigationMenu from '../NavigationMenu';
 import { ROUTES } from '../../constants';
 import { identityService } from '../../services/identity';
+import { useStores } from '../../stores/useStores';
+import Alert, { ALERT_TYPE } from '../Alert';
+import { ErrorResponse } from '../../interfaces/ErrorResponse';
 
 function Signup(): JSX.Element {
   const initialValues = {
@@ -19,6 +23,7 @@ function Signup(): JSX.Element {
     acceptTerms: false,
   };
   const history = useHistory();
+  const { alertStore } = useStores();
 
   const validationSchema = Yup.object({
     email: Yup.string().email('Email is invalid').required('Email is required'),
@@ -45,17 +50,35 @@ function Signup(): JSX.Element {
   function onSubmit({
     email, password, passwordConfirmation, phone, acceptTerms,
   }, { setStatus, setSubmitting }) {
+    alertStore.clear();
     // setStatus();
     identityService
       .signup(email, password)
       .then(() => {
         console.log('signup done');
-        // alertService.success('Registration successful, please check your email for verification instructions', { keepAfterRouteChange: true });
+        alertStore.addAlert({
+          id: 'alert-signup',
+          text: 'Registration successful, please check your email for verification instructions',
+          type: ALERT_TYPE.Success,
+          dismissible: true,
+          autoClose: false,
+        });
         history.push('login');
       })
-      .catch((error) => {
+      .catch((error: AxiosError<ErrorResponse>) => {
         setSubmitting(false);
-        // alertService.error(error);
+        const errorResponse = error.response;
+        if (errorResponse) {
+          errorResponse.data.errors.forEach((elem, index) => {
+            alertStore.addAlert({
+              id: `alert-${index}`,
+              text: elem,
+              type: ALERT_TYPE.Danger,
+              dismissible: true,
+              autoClose: false,
+            });
+          });
+        }
       });
   }
 
@@ -63,6 +86,7 @@ function Signup(): JSX.Element {
     <>
       <NavigationMenu />
       <Container>
+        <Alert />
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
