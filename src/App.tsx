@@ -10,6 +10,7 @@ import NotFound from './components/NotFound'
 import Signup from './components/pages/Signup';
 import { ROUTES } from './constants';
 import Login from './components/pages/Login';
+import LogOut from './components/pages/LogOut';
 
 function App(): JSX.Element {
   return (
@@ -21,6 +22,7 @@ function App(): JSX.Element {
       <Route path={ROUTES.TERMS_AND_CONDITIONS} component={Termeni} />
       <Route path={ROUTES.GDPR} component={Gdpr} />
       <Route path={ROUTES.LOGIN} component={Login} />
+      <Route path={ROUTES.LOGOUT} component={LogOut} />
       <Route path={ROUTES.SIGNUP} component={Signup} />
       <Route component={NotFound} />
     </Switch>

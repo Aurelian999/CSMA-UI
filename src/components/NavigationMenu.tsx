@@ -8,6 +8,22 @@ function NavigationMenu(props: RouteComponentProps) {
   const { location } = props;
   const { userStore } = useStores();
 
+  function userMenu(isAuthenticated: boolean) {
+    if (isAuthenticated) {
+      return (
+        <Nav className="justify-content-end" variant="pills" activeKey={location.pathname}>
+          <Nav.Link href={ROUTES.LOGOUT} className="justify-content-end">Deconectare</Nav.Link>
+        </Nav>
+      );
+    }
+    return (
+      <Nav className="justify-content-end" variant="pills" activeKey={location.pathname}>
+        <Nav.Link href={ROUTES.SIGNUP} className="justify-content-end">Inregistrare</Nav.Link>
+        <Nav.Link href={ROUTES.LOGIN} className="justify-content-end">Autentificare</Nav.Link>
+      </Nav>
+    );
+  }
+
   return (
     <Navbar bg="light" expand="lg" className="nav-menu">
       <Navbar.Brand href="/">
@@ -30,14 +46,7 @@ function NavigationMenu(props: RouteComponentProps) {
           <Nav.Link href={ROUTES.OFFERS}>Oferte</Nav.Link>
 
         </Nav>
-        {
-          !userStore.isAuthenticated && (
-          <Nav className="justify-content-end" variant="pills" activeKey={location.pathname}>
-            <Nav.Link href={ROUTES.SIGNUP} className="justify-content-end">Inregistrare</Nav.Link>
-            <Nav.Link href={ROUTES.LOGIN} className="justify-content-end">Autentificare</Nav.Link>
-          </Nav>
-          )
-        }
+        {userMenu(userStore.isAuthenticated)}
       </Navbar.Collapse>
     </Navbar>
   );

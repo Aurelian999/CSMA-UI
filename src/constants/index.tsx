@@ -7,6 +7,7 @@ export const IDENTITY_API_SIGNUP_PATH = '/identity/register';
 export const ROUTES = {
   HOME: '/',
   LOGIN: '/login',
+  LOGOUT: '/logout',
   SIGNUP: '/signup',
   RESET_PASSWORD: '/reset-password',
   CONTACT: '/contact',

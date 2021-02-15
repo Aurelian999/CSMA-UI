@@ -18,6 +18,7 @@ export class UserStore {
       isAuthenticated: computed,
       setUser: action,
       getUser: action,
+      logout: action,
     });
 
     this.user = { name: '', email: '' };
@@ -34,14 +35,23 @@ export class UserStore {
 
   // TODO - persist the JWT - use cookies?
   setJwt(jwt: string): void {
+    localStorage.setItem('jwt', jwt);
     this.jwt = jwt;
   }
 
   getJwt(): string {
-    return this.jwt;
+    return localStorage.getItem('jwt') || '';
+    return this.jwt; // TODO clear this mess
   }
 
+  // eslint-disable-next-line class-methods-use-this
   get isAuthenticated(): boolean {
-    return this.jwt !== '';
+    const storedJwt = localStorage.getItem('jwt');
+    return storedJwt !== null && storedJwt !== '';
+  }
+
+  logout(): void {
+    this.setUser({ name: '', email: '' });
+    localStorage.clear();
   }
 }
