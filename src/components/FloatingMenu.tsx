@@ -43,47 +43,52 @@ function FloatingMenu(): JSX.Element {
     className += ' open';
     icon = faTimesCircle;
     buttons.push(
-        <FloatingMenuItem
-          label="Sună acum"
-          icon={faPhoneAlt}
-          action={contactViaPhone}
-        />,
+      <FloatingMenuItem
+        key="phone"
+        label="Sună acum"
+        icon={faPhoneAlt}
+        action={contactViaPhone}
+      />,
     );
     buttons.push(
-        <FloatingMenuItem
-          label="WhatsApp"
-          icon={faWhatsapp}
-          action={contactViaWhatsApp}
-        />,
+      <FloatingMenuItem
+        key="WhatsApp"
+        label="WhatsApp"
+        icon={faWhatsapp}
+        action={contactViaWhatsApp}
+      />,
     );
     buttons.push(
-        <FloatingMenuItem
-          label="Messenger"
-          icon={faFacebookMessenger}
-          action={contactViaMessenger}
-        />,
+      <FloatingMenuItem
+        key="facebook-messenger"
+        label="Messenger"
+        icon={faFacebookMessenger}
+        action={contactViaMessenger}
+      />,
     );
     buttons.push(
-        <FloatingMenuItem
-          label="Mail"
-          icon={faEnvelopeOpen}
-          action={contactViaMail}
-        />,
+      <FloatingMenuItem
+        key="email"
+        label="Mail"
+        icon={faEnvelopeOpen}
+        action={contactViaMail}
+      />,
     );
   }
 
   buttons.push(
-      <FloatingMenuItem
-        label=""
-        icon={icon}
-        action={toggleMenu}
-      />,
+    <FloatingMenuItem
+      key="toggle-menu"
+      label=""
+      icon={icon}
+      action={toggleMenu}
+    />,
   );
 
   return (
-      <Container>
-        <div className={className}>{buttons}</div>
-      </Container>
+    <Container>
+      <div className={className}>{buttons}</div>
+    </Container>
   );
 }
 
