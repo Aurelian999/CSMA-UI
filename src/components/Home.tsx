@@ -23,6 +23,7 @@ function Home(): JSX.Element {
               <h3 style={{ color: 'black' }}>Bun venit!</h3>
               <p style={{ color: 'black' }}>
                 Aflați acum
+                {' '}
                 <a href="/servicii">serviciile</a>
                 {' '}
                 și

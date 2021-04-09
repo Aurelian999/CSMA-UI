@@ -44,5 +44,6 @@ module.exports = {
     'jsx-a11y/accessible-emoji': 0,
     'no-param-reassign': 0,
     'linebreak-style': 0,
+    "@typescript-eslint/no-use-before-define": 0, // https://stackoverflow.com/a/64024916/3872362
   },
 };
